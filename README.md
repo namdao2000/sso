@@ -2,8 +2,7 @@
 
 [Live Demo](https://oauth.namdao.workers.dev/)
 
-This is a SSO service for my web applications Powered by Bcrypt and jsonwebtoken.
-Powered by [Worktop's Router](https://github.com/lukeed/worktop).
+This is a SSO service for my web applications Powered by Bcrypt and jsonwebtoken and [Worktop's Router](https://github.com/lukeed/worktop).
 
 ## Endpoints
 
