@@ -3,5 +3,5 @@ node_modules
 transpiled
 /.idea/
 .env
-oauth-ssh-keypair
-oauth-ssh-keypair.pub
+sso-ssh-keypair
+sso-ssh-keypair.pub

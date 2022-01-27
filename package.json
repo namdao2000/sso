@@ -1,5 +1,5 @@
 {
-  "name": "oauth",
+  "name": "sso",
   "version": "1.0.0",
   "description": "Sign and verify urls using serverless Cloudflare Workers",
   "main": "dist/worker.js",
@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.0.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^26.0.23",
     "@types/service-worker-mock": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
@@ -29,7 +30,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-typescript": "^3.0.0",
     "jest": "^27.0.1",
-    "miniflare": "^2.0.0",
+    "miniflare": "^2.2.0",
     "prettier": "^2.3.0",
     "service-worker-mock": "^2.0.5",
     "ts-jest": "^27.0.1",
@@ -39,6 +40,7 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "worktop": "^0.7.3"
   }
 }

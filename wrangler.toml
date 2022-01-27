@@ -1,4 +1,4 @@
-name = "oauth"
+name = "sso"
 type = "javascript"
 zone_id = ""
 account_id = ""
@@ -12,4 +12,5 @@ command = "npm install && npm run build"
 format = "service-worker"
 
 # [secrets]
-# SECRET_KEY
+# PUBLIC_KEY
+# PRIVATE_KEY

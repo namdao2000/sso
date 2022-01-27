@@ -1,6 +1,6 @@
 # Description
 
-[Live Demo](https://oauth.namdao.workers.dev/)
+[Live Demo](https://sso.namdao.workers.dev/)
 
 This is a SSO service for my web applications Powered by Bcrypt and jsonwebtoken and [Worktop's Router](https://github.com/lukeed/worktop).
 
@@ -23,7 +23,7 @@ Expiry time is configurable.
 ## Deploying to production
 1. Make sure you have `wrangler` and `nvm` installed.
 2. Run `nvm install` to install the correct Nodejs version.
-3. Go to the Workers dashboard, create a new project called `oauth`.
+3. Go to the Workers dashboard, create a new project called `sso`.
 4. Run `wrangler secret put PUBLIC_KEY` and type in your public key.
 5. Run `wrangler secret put PRIVATE_KEY` and type in your private key.
 6. Run `wrangler publish`.

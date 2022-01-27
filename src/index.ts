@@ -8,16 +8,12 @@ import { SignupController } from './controllers/signup.controller';
 const router = new Router();
 
 router.add('GET', '/', async (req: ServerRequest, res: ServerResponse) => {
-  res.send(200, { message: 'This is an oauth server. Documentations are WIP' });
+  res.send(200, { message: 'This is an sso server. Documentations are WIP' });
 });
 router.add('POST', '/login', LoginController);
 router.add('POST', '/signup', SignupController);
-router.add(
-  'GET',
-  '/public-key',
-  async (req: ServerRequest, res: ServerResponse) => {
-    res.send(200, { key: PUBLIC_KEY_EXPORT });
-  },
-);
+router.add('GET', '/public-key', async (req: ServerRequest, res: ServerResponse) => {
+  res.send(200, { key: PUBLIC_KEY_EXPORT });
+});
 
 listen(router.run);
