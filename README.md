@@ -17,8 +17,8 @@ Expiry time is configurable.
 
 1. Make sure you have `wrangler` and `nvm` installed. 
 2. Run `nvm install` to install the correct Nodejs version.
-3. Create a `.env` file and add `PUBLIC_KEY=YOUR PUBLIC KEY` and `PRIVATE_KEY=YOUR PRIVATE KEY`
-4. Run `npm run dev`
+3. Run `sh generate-ecdsa-keypair.sh`. This will create an `.env` file and add `PUBLIC_KEY` and `PRIVATE_KEY` to it.
+5. Run `npm run dev`.
 
 ## Deploying to production
 1. Make sure you have `wrangler` and `nvm` installed.
