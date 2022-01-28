@@ -65,8 +65,7 @@ paths:
     post:
       summary: Verify the login credentials of the user
       description: >-
-        This operation shows how to override the global security defined above,
-        as we want to open it up for all users.
+        This will check the login credentials and make sure that it is valid. Upon success, a token will be returned.
       security: []
       responses:
         '200':
@@ -114,7 +113,6 @@ paths:
         Upon successful signup and login, you will get a JWT. Using this route,
         you can verify the correctness of the token.
       parameters: []
-      operationId: ''
       responses:
         '200':
           description: Valid token
@@ -143,7 +141,6 @@ paths:
         Get the public key so that you can verify the signature of the JWT from
         your own application.
       parameters: []
-      operationId: ''
       responses:
         '200':
           description: Success
