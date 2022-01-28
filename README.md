@@ -2,16 +2,17 @@
 
 [Live Demo](https://sso.namdao.dev/)
 
-This is a SSO service for my web applications Powered by Bcrypt and jsonwebtoken and [Worktop's Router](https://github.com/lukeed/worktop).
+This is a Serverless SSO service for my web applications. Its powered by Bcryptjs for password hashing, Jose for JWT and [Worktop's Router](https://github.com/lukeed/worktop) for routing HTTP requests.
 
+Due to the limitation of the worker's 10ms cpu limit, passwords are only hashed up to 5 salt rounds (The recommended is 10). Users info are stored in Workers KV, a globally distributed, eventually consistent key value store.
+
+This costs $0 to maintain, due to Cloudflare's generous workers free teir (100,000 req/day). Noice 😎
 ## Endpoints
-
-#### GET /public-key
-Takes in a url parameter and returns a signed version of the URL, ready to be verified by the `/verify` end point.
-Expiry time is configurable.
-
-#### GET /login
-#### GET /signup
+[Full API Documentation](https://sso-api-doc.namdao.dev/)
+#### - GET /public-key
+#### - POST /login
+#### - POST /signup
+#### - POST /verify-jwt
 
 ## Running in development
 
