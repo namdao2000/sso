@@ -24,8 +24,9 @@ Expiry time is configurable.
 1. Make sure you have `wrangler` and `nvm` installed.
 2. Run `nvm install` to install the correct Nodejs version.
 3. Go to the Workers dashboard, create a new project called `sso`.
-4. Run `wrangler secret put PUBLIC_KEY` and type in your public key.
-5. Run `wrangler secret put PRIVATE_KEY` and type in your private key.
-6. Run `wrangler publish`.
+4. Go to the Workers KV dashboard, make sure `USER` namespace is created.
+5. Run `wrangler secret put PUBLIC_KEY` and type in your public key.
+6. Run `wrangler secret put PRIVATE_KEY` and type in your private key.
+7. Run `wrangler publish`.
 
 #### [MIT LICENSE](LICENSE)
