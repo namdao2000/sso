@@ -53,7 +53,7 @@ export const AuthService = {
     ip,
   }: CreateNewUserArgs): Promise<void> => {
     if (await UserDataLayer.getUser(email)) {
-      throw new HttpError(getHttpErrorResponse(ErrorCode.USERNAME_TAKEN));
+      throw new HttpError(getHttpErrorResponse(ErrorCode.EMAIL_TAKEN));
     }
     const bcryptedPassword = await getBcryptedPassword(password);
     await UserDataLayer.createNewUser({

@@ -43,10 +43,10 @@ export const getHttpErrorResponse = (errorCode: ErrorCode): IHttpErrorResponse =
       response.message = 'Your header is missing Bearer Token';
       break;
     }
-    case ErrorCode.USERNAME_TAKEN: {
+    case ErrorCode.EMAIL_TAKEN: {
       response.status = 409;
       response.message =
-        'New account cannot be created because the username provided has been taken.';
+        'New account cannot be created because the email provided has been taken.';
       break;
     }
     case ErrorCode.UNAUTHORIZED_ACTION: {
