@@ -9,12 +9,16 @@ export const asyncErrorHandler = async (
     await callback();
   } catch (e) {
     const error = e as IHttpErrorResponse;
-    if (!error.status) res.send(500, getHttpErrorResponse(ErrorCode.UNKNOWN_ERROR));
-    res.send(error.status, {
-      status: error.status,
-      message: error.message,
-      errorCode: error.errorCode,
-    });
+    if (!error.status) {
+      console.log(error);
+      res.send(500, getHttpErrorResponse(ErrorCode.UNKNOWN_ERROR));
+    } else {
+      res.send(error.status, {
+        status: error.status,
+        message: error.message,
+        errorCode: error.errorCode,
+      });
+    }
   }
 };
 

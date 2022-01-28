@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "jose": "^4.4.0",
     "worktop": "^0.7.3"
   }
 }

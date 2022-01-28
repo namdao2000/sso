@@ -4,6 +4,7 @@ import { ServerRequest } from 'worktop/request';
 import { PUBLIC_KEY_EXPORT } from './utils/constants';
 import { LoginController } from './controllers/login.controller';
 import { SignupController } from './controllers/signup.controller';
+import { VerifyJWTController } from './controllers/VerifyJWT.controller';
 
 const router = new Router();
 
@@ -12,6 +13,7 @@ router.add('GET', '/', async (req: ServerRequest, res: ServerResponse) => {
 });
 router.add('POST', '/login', LoginController);
 router.add('POST', '/signup', SignupController);
+router.add('POST', '/verify-jwt', VerifyJWTController);
 router.add('GET', '/public-key', async (req: ServerRequest, res: ServerResponse) => {
   res.send(200, { key: PUBLIC_KEY_EXPORT });
 });

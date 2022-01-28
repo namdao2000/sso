@@ -3,5 +3,6 @@ node_modules
 transpiled
 /.idea/
 .env
-sso-ssh-keypair
-sso-ssh-keypair.pub
+private.ec.key
+private.pem
+public.pem

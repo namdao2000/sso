@@ -1,9 +1,11 @@
 import { UserInfo, VerifyUserCredentialsArgs } from './types';
 import { UserDataLayer } from '../../cloudflare-kv/user';
 import { CreateNewUserArgs } from '../../cloudflare-kv/types';
-import * as bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import { ErrorCode, HttpError } from '../http-error/types';
 import { getHttpErrorResponse } from '../http-error/http-error-response.service';
+import * as jose from 'jose';
+import { JWTVerifyResult } from 'jose';
 
 export const verifyPassword = async ({
   bcryptedPassword,
@@ -16,7 +18,7 @@ export const verifyPassword = async ({
 };
 
 const getBcryptedPassword = async (password: string): Promise<string> => {
-  const salt = await bcrypt.genSalt(4);
+  const salt = await bcrypt.genSalt(5);
   return bcrypt.hash(password, salt);
 };
 
@@ -63,13 +65,20 @@ export const AuthService = {
       ip,
     });
   },
-  // generateJWT: async (email: string): Promise<string> => {
-  //   return jwt.sign({ email }, JWT_SECRET(), { expiresIn: '30 days' });
-  // },
-  // verifyAndDecodeJWT: async (token: string): Promise<string | undefined> => {
-  //   try {
-  //     const result = jwt.verify(token, JWT_SECRET());
-  //     return (result as { username: string }).username;
-  //   } catch {}
-  // },
+  generateJWT: async (email: string): Promise<string> => {
+    console.log(PRIVATE_KEY);
+    return new jose.SignJWT({ email })
+      .setProtectedHeader({ alg: 'ES256' })
+      .setIssuedAt()
+      .setExpirationTime('30 days')
+      .sign(await jose.importPKCS8(PRIVATE_KEY, 'ES256'));
+  },
+
+  verifyJWT: async (token: string): Promise<JWTVerifyResult> => {
+    try {
+      return jose.jwtVerify(token, await jose.importSPKI(PUBLIC_KEY, 'ES256'));
+    } catch (e) {
+      throw new HttpError(getHttpErrorResponse(ErrorCode.INVALID_TOKEN));
+    }
+  },
 };
