@@ -56,7 +56,6 @@ export const AuthService = {
       throw new HttpError(getHttpErrorResponse(ErrorCode.USERNAME_TAKEN));
     }
     const bcryptedPassword = await getBcryptedPassword(password);
-    console.log(bcryptedPassword);
     await UserDataLayer.createNewUser({
       email,
       password: bcryptedPassword,
@@ -66,7 +65,6 @@ export const AuthService = {
     });
   },
   generateJWT: async (email: string): Promise<string> => {
-    console.log(PRIVATE_KEY);
     return new jose.SignJWT({ email })
       .setProtectedHeader({ alg: 'ES256' })
       .setIssuedAt()

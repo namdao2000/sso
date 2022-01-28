@@ -10,7 +10,6 @@ export const asyncErrorHandler = async (
   } catch (e) {
     const error = e as IHttpErrorResponse;
     if (!error.status) {
-      console.log(error);
       res.send(500, getHttpErrorResponse(ErrorCode.UNKNOWN_ERROR));
     } else {
       res.send(error.status, {
