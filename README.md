@@ -1,6 +1,6 @@
 # Description
 
-[Live Demo](https://sso.namdao.workers.dev/)
+[Live Demo](https://sso.namdao.dev/)
 
 This is a SSO service for my web applications Powered by Bcrypt and jsonwebtoken and [Worktop's Router](https://github.com/lukeed/worktop).
 
