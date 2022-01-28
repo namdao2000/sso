@@ -74,7 +74,7 @@ export const AuthService = {
 
   verifyJWT: async (token: string): Promise<JWTVerifyResult> => {
     try {
-      return jose.jwtVerify(token, await jose.importSPKI(PUBLIC_KEY, 'ES256'));
+      return await jose.jwtVerify(token, await jose.importSPKI(PUBLIC_KEY, 'ES256'));
     } catch (e) {
       throw new HttpError(getHttpErrorResponse(ErrorCode.INVALID_TOKEN));
     }

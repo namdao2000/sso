@@ -5,15 +5,15 @@ account_id = ""
 route = ""
 workers_dev = true
 compatibility_date = "2022-01-08"
+kv_namespaces = [
+    { binding = "USER", id = "cd62918c9e2843e0ad15ee009cb476e8" }
+]
 
 [build]
 command = "npm install && npm run build"
 [build.upload]
 format = "service-worker"
 
-kv_namespaces = [
-    { binding = "USER", id = "cd62918c9e2843e0ad15ee009cb476e8" }
-]
 
 # [secrets]
 # PUBLIC_KEY
