@@ -1,4 +1,22 @@
 import { ErrorCode, IHttpErrorResponse } from './types';
+import { ServerResponse } from 'worktop/response';
+
+export const asyncErrorHandler = async (
+  res: ServerResponse,
+  callback: () => Promise<void>,
+): Promise<void> => {
+  try {
+    await callback();
+  } catch (e) {
+    const error = e as IHttpErrorResponse;
+    if (!error.status) res.send(500, getHttpErrorResponse(ErrorCode.UNKNOWN_ERROR));
+    res.send(error.status, {
+      status: error.status,
+      message: error.message,
+      errorCode: error.errorCode,
+    });
+  }
+};
 
 export const getHttpErrorResponse = (errorCode: ErrorCode): IHttpErrorResponse => {
   const response: IHttpErrorResponse = {
@@ -31,11 +49,6 @@ export const getHttpErrorResponse = (errorCode: ErrorCode): IHttpErrorResponse =
     case ErrorCode.UNAUTHORIZED_ACTION: {
       response.status = 403;
       response.message = 'You are unauthorized to perform this action.';
-      break;
-    }
-    case ErrorCode.DIARY_PAGE_NON_EXISTENT: {
-      response.status = 404;
-      response.message = 'The resource you requested was not found.';
       break;
     }
     case ErrorCode.UNKNOWN_ERROR: {
