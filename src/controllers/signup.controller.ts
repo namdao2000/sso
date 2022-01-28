@@ -16,6 +16,10 @@ export const SignupController = async (
     }
     const ip = req.headers.get('CF-Connecting-IP') || undefined;
     await AuthService.createNewUser({ ...signUpBodyArgs, ip });
-    res.send(201, { message: `Successfully created the user ${signUpBodyArgs.email}` });
+    const token = AuthService.generateJWT(signUpBodyArgs.email);
+    res.send(201, {
+      message: `Successfully created the user ${signUpBodyArgs.email}`,
+      token,
+    });
   });
 };
