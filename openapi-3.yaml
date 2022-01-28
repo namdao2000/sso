@@ -1,0 +1,169 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/namdao2000/sso/1.0.0
+  - url: 'https://sso.namdao.dev'
+info:
+  version: 1.0.0
+  title: SSO OAuth Service
+  description: >-
+    This is a Single sign-on (SSO) OAuth service that allows you to signup,
+    login and verify Json Web Tokens (JWT) for your users. Think of it as 0Auth,
+    but free :)
+  contact: {}
+paths:
+  /signup:
+    post:
+      summary: Create a new account for the user
+      description: >-
+        This operation will create a new account for the user, and returns a JWT
+        token.
+      responses:
+        '201':
+          description: Successfully created a new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully created the user namdao@gmail.com
+                  token:
+                    type: string
+                    format: JWT
+                    example: >-
+                      eyJhbGciOiJFUzI1NiJ9.eyJlbWFpbCI6Im5hbWRhbzIwMDJAZ21haWwuY29tIiwiaWF0IjoxNjQzMzU4NjIyLCJleHAiOjE2NDU5NTA2MjJ9.H0dV1aNbzF3mCmpuw0LkPS0HT45mystn4IRUGCYxlxXTwqp68wdGdA28QYRoWH0u2j88-b8cCpMhbHrBJ2rI2w
+        '400':
+          description: Bad Request
+        '409':
+          description: Email already taken
+        '500':
+          description: Bad request
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - firstName
+                - lastName
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+  /login:
+    post:
+      summary: Verify the login credentials of the user
+      description: >-
+        This operation shows how to override the global security defined above,
+        as we want to open it up for all users.
+      security: []
+      responses:
+        '200':
+          description: Valid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Login success for namdao@gmail.com
+                  token:
+                    type: string
+                    format: JWT
+                    example: >-
+                      eyJhbGciOiJFUzI1NiJ9.eyJlbWFpbCI6Im5hbWRhbzIwMDJAZ21haWwuY29tIiwiaWF0IjoxNjQzMzU4NjIyLCJleHAiOjE2NDU5NTA2MjJ9.H0dV1aNbzF3mCmpuw0LkPS0HT45mystn4IRUGCYxlxXTwqp68wdGdA28QYRoWH0u2j88-b8cCpMhbHrBJ2rI2w
+        '400':
+          description: Bad request
+        '401':
+          description: Invalid credentials
+        '500':
+          description: Internal server error
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+  /verify-jwt:
+    post:
+      summary: Verify the JWT
+      description: >-
+        Upon successful signup and login, you will get a JWT. Using this route,
+        you can verify the correctness of the token.
+      parameters: []
+      operationId: ''
+      responses:
+        '200':
+          description: Valid token
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  format: JWT
+                  example: >-
+                    eyJhbGciOiJFUzI1NiJ9.eyJlbWFpbCI6Im5hbWRhbzIwMDJAZ21haWwuY29tIiwiaWF0IjoxNjQzMzU4NjIyLCJleHAiOjE2NDU5NTA2MjJ9.H0dV1aNbzF3mCmpuw0LkPS0HT45mystn4IRUGCYxlxXTwqp68wdGdA28QYRoWH0u2j88-b8cCpMhbHrBJ2rI2w
+  /public-key:
+    get:
+      summary: Public key
+      description: >-
+        Get the public key so that you can verify the signature of the JWT from
+        your own application.
+      parameters: []
+      operationId: ''
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  publicKey:
+                    type: string
+                    example: >-
+                      -----BEGIN PUBLIC KEY-----
+                      MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEots3wgAy2SX1+ENpW50rLOGQRskp
+                      0xVpyc4hf1R0SuxZFBygtVIHJPv/2miQNwWTTMxCfpH8FjgAb4vTwbP7Tg==
+                      -----END PUBLIC KEY-----
+security: []
+components:
+  links: {}
+  callbacks: {}
+  schemas: {}
