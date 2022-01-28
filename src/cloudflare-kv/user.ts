@@ -8,20 +8,11 @@ export const UserDataLayer = {
     lastName,
     ip,
   }: CreateNewUserArgs) => {
-    console.log('created a new user?');
+    await USER.put(email, JSON.stringify({ email, password, firstName, lastName, ip }));
   },
-  getUser: async (email: string): Promise<User> => {
-    return {
-      email: 'hello',
-      password: '123password',
-      firstName: 'nam',
-      lastName: 'dao',
-      ip: 'localhost',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-  },
-  getUserPassword: async (email: string): Promise<string> => {
-    return 'password';
+  getUser: async (email: string): Promise<User | undefined> => {
+    const result = await USER.get(email);
+    if (!result) return;
+    return JSON.parse(result) as User;
   },
 };

@@ -4,3 +4,8 @@ export interface SignUpBodyArgs {
   firstName: string;
   lastName: string;
 }
+
+export interface LoginBodyArgs {
+  email: string;
+  password: string;
+}

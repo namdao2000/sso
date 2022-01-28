@@ -16,7 +16,7 @@ export const verifyPassword = async ({
 };
 
 const getBcryptedPassword = async (password: string): Promise<string> => {
-  const salt = bcrypt.genSaltSync(10);
+  const salt = await bcrypt.genSalt(4);
   return bcrypt.hash(password, salt);
 };
 
@@ -24,24 +24,24 @@ export const AuthService = {
   verifyUserCredentials: async ({
     email,
     password,
-  }: VerifyUserCredentialsArgs): Promise<UserInfo | undefined> => {
-    const bcryptedPassword = await UserDataLayer.getUserPassword(email);
-    if (!bcryptedPassword) return;
-    const validPassword = await verifyPassword({ bcryptedPassword, password });
-    if (validPassword) {
-      const user = await UserDataLayer.getUser(email);
-      if (user) {
-        const { firstName, lastName, createdAt, updatedAt, ip } = user;
-        return {
-          email,
-          firstName,
-          lastName,
-          ip,
-          createdAt,
-          updatedAt,
-        };
-      }
-    }
+  }: VerifyUserCredentialsArgs): Promise<UserInfo> => {
+    const user = await UserDataLayer.getUser(email);
+    if (!user) throw new HttpError(getHttpErrorResponse(ErrorCode.INVALID_CREDENTIALS));
+    const validPassword = await verifyPassword({
+      bcryptedPassword: user.password,
+      password,
+    });
+    if (!validPassword)
+      throw new HttpError(getHttpErrorResponse(ErrorCode.INVALID_CREDENTIALS));
+    const { firstName, lastName, createdAt, updatedAt, ip } = user;
+    return {
+      email,
+      firstName,
+      lastName,
+      ip,
+      createdAt,
+      updatedAt,
+    };
   },
   createNewUser: async ({
     email,
@@ -50,9 +50,9 @@ export const AuthService = {
     lastName,
     ip,
   }: CreateNewUserArgs): Promise<void> => {
-    // if (await UserDataLayer.getUser(email)) {
-    //   throw new HttpError(getHttpErrorResponse(ErrorCode.USERNAME_TAKEN));
-    // }
+    if (await UserDataLayer.getUser(email)) {
+      throw new HttpError(getHttpErrorResponse(ErrorCode.USERNAME_TAKEN));
+    }
     const bcryptedPassword = await getBcryptedPassword(password);
     console.log(bcryptedPassword);
     await UserDataLayer.createNewUser({
